@@ -13,6 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingText(message = "Happy Birthday Navarro!", from = "From Mario")
+                    GreetingImage(message = "Happy Birthday Navarro!", from = "From Mario")
                 }
             }
         }
@@ -42,7 +46,7 @@ fun GreetingText(message: String,from: String, modifier: Modifier = Modifier) {
     Column (modifier = modifier,verticalArrangement = Arrangement.Center) {
         Text(
             text = message,
-            fontSize = 100.sp,
+            fontSize = 98.sp,
             lineHeight = 116.sp,
             textAlign = TextAlign.Center,
         )
@@ -55,10 +59,32 @@ fun GreetingText(message: String,from: String, modifier: Modifier = Modifier) {
         )
     }
 }
-@Preview(showBackground = true)
+
+@Composable
+fun GreetingImage(message: String, from: String, modifier: Modifier = Modifier) {
+    val image = painterResource(R.drawable.androidparty)
+    Box {
+        Image(
+            painter = image,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            alpha = 0.5F
+        )
+        GreetingText(
+            message = message,
+            from = from,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp)
+        )
+    }
+}
+@Preview(showBackground = false)
 @Composable
 fun BirthdayCardPreview() {
     Practica1_3_3Theme {
-        GreetingText(message = "Happy Birthday Navarro!",from = "From Mario")
+            GreetingImage(message = stringResource(R.string.happy_birthday_navarro),
+                from = stringResource(R.string.from_mario)
+            )
+        }
     }
-}
